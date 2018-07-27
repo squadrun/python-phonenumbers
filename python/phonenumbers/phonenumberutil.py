@@ -3175,7 +3175,7 @@ class NumberParseException(UnicodeMixin, Exception):
     TOO_LONG = 4
 
     def __init__(self, error_type, msg):
-        Exception.__init__(self, msg)
+        super(NumberParseException, self).__init__(self, msg)
         self.error_type = error_type
         self._msg = msg
 
