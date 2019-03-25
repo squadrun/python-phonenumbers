@@ -10,6 +10,53 @@ changes.  (Metadata updates are best checked
 [upstream](https://github.com/googlei18n/libphonenumber/blob/master/release_notes.txt).)
 
 
+What's new in 8.10.8
+---------------------
+
+Merge to
+[upstream commit aa1e7af6d637](https://github.com/googlei18n/libphonenumber/commit/aa1e7af6d637);
+relevant code changes:
+  - Making the application of alternate formats when finding phone numbers in
+    text in strict-grouping and exact-match mode depend on the leading digits
+    for each rule. This was always assumed but never actually done. This means
+    that the false positive rate will decrease but also that more valid numbers
+    are skipped. A subsequent CL will update patterns to increase recall.
+
+
+What's new in 8.10.3
+---------------------
+
+Merge to
+[upstream commit 45953266d45d](https://github.com/googlei18n/libphonenumber/commit/45953266d45d);
+relevant code changes:
+ - Better documentation for length_of_national_destination_code to emphasise that
+   not every number has one.
+ - Removed unused code in the AsYouTypeFormatter: We no longer have numbers in
+   formatting matching patterns, only \d.
+
+
+What's new in 8.10.0
+---------------------
+
+Merge to
+[upstream commit d62a8fb2b719](https://github.com/googlei18n/libphonenumber/commit/d62a8fb2b719);
+relevant code changes:
+ - AsYouTypeFormatter changed to better choose between rules when dialling
+   locally; previously we used the international rules when the national prefix
+   was present since this would exclude the local-only rules. However, there are
+   some numbers that are not internationally diallable that *do* use the
+   national prefix, and this logic precluded formatting them correctly.
+
+
+What's new in 8.9.12
+--------------------
+
+Merge to
+[upstream commit d56bf9da349b](https://github.com/googlei18n/libphonenumber/commit/d56bf9da349b);
+relevant code changes:
+ - Support Russian extension character "доб" as a valid one while parsing the numbers.
+
+
 What's new in 8.9.0
 -------------------
 

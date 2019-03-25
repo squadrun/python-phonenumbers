@@ -16,6 +16,7 @@
 # limitations under the License.
 
 import distutils.core
+import io
 import sys
 # Importing setuptools adds some features like "setup.py test", but
 # it's optional so swallow the error if it's not there.
@@ -44,6 +45,9 @@ if not lite:
     except ImportError:
         lite = True
 
+with io.open("README.md", mode="r", encoding="utf-8") as readme:
+    long_description = readme.read()
+
 # Various parameters depend on whether we are the lite package or not
 if lite:
     pkgname = 'phonenumberslite'
@@ -59,6 +63,8 @@ else:
 distutils.core.setup(name=pkgname,
                      version=__version__,
                      description="Python version of Google's common library for parsing, formatting, storing and validating international phone numbers.",
+                     long_description=long_description,
+                     long_description_content_type="text/markdown",
                      author='David Drysdale',
                      author_email='dmd@lurklurk.org',
                      url='https://github.com/daviddrysdale/python-phonenumbers',

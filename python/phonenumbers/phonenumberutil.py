@@ -318,9 +318,10 @@ def _create_extn_pattern(single_extn_symbols):
     return (_RFC3966_EXTN_PREFIX + _CAPTURING_EXTN_DIGITS + u("|") +
             u("[ \u00A0\\t,]*(?:e?xt(?:ensi(?:o\u0301?|\u00F3))?n?|") +
             u("\uFF45?\uFF58\uFF54\uFF4E?|") +
-            u("[") + single_extn_symbols + u("]|int|anexo|\uFF49\uFF4E\uFF54)") +
+            u("\u0434\u043e\u0431|") + u("[") + single_extn_symbols + u("]|int|anexo|\uFF49\uFF4E\uFF54)") +
             u("[:\\.\uFF0E]?[ \u00A0\\t,-]*") + _CAPTURING_EXTN_DIGITS + u("#?|") +
             u("[- ]+(") + _DIGITS + u("{1,5})#"))
+
 
 _EXTN_PATTERNS_FOR_PARSING = _create_extn_pattern(_SINGLE_EXTN_SYMBOLS_FOR_PARSING)
 _EXTN_PATTERNS_FOR_MATCHING = _create_extn_pattern(_SINGLE_EXTN_SYMBOLS_FOR_MATCHING)
@@ -708,8 +709,11 @@ def length_of_national_destination_code(numobj):
     national significant number into NDC and subscriber number. The NDC of a
     phone number is normally the first group of digit(s) right after the
     country calling code when the number is formatted in the international
-    format, if there is a subscriber number part that follows. An example of
-    how this could be used:
+    format, if there is a subscriber number part that follows.
+
+    N.B.: similar to an area code, not all numbers have an NDC!
+
+    An example of how this could be used:
 
     >>> import phonenumbers
     >>> numobj = phonenumbers.parse("18002530000", "US")
@@ -728,7 +732,8 @@ def length_of_national_destination_code(numobj):
     Arguments:
     numobj -- The PhoneNumber object to find the length of the NDC from.
 
-    Returns the length of NDC of the PhoneNumber object passed in.
+    Returns the length of NDC of the PhoneNumber object passed in, which
+    could be zero.
     """
     if numobj.extension is not None:
         # We don't want to alter the object given to us, but we don't want to
